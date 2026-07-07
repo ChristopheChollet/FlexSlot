@@ -1,8 +1,31 @@
 import Link from "next/link";
+import { HeroLivePreview } from "@/components/HeroLivePreview";
 import { OpsChain } from "@/components/OpsChain";
+import { RecommendationsIcon } from "@/components/RecommendationsIcon";
 import { getEcosystemLinks, getRepoUrl } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+
 const stack = ["Next.js", "TypeScript", "GridPulse API", "GreenOps API", "Vercel"];
+
+const accent = "#ea580c";
+
+const modules = [
+  {
+    href: "/recommendations",
+    title: "Recommandations",
+    description:
+      "Fenêtre optimale GridPulse, action ops (consommer / flex / décaler) et création du slot GreenOps en un clic — cœur du produit V1.",
+    available: true,
+  },
+  {
+    href: "/recommendations",
+    title: "Historique & alertes",
+    description:
+      "V2 — suivi des recommandations passées, comparaison prévu vs réalisé et notifications (e-mail ou webhook).",
+    available: false,
+  },
+] as const;
 
 export default function HomePage() {
   const repoUrl = getRepoUrl();
@@ -10,7 +33,7 @@ export default function HomePage() {
 
   return (
     <div className="pb-16">
-      <section className="landing-hero pb-16 pt-4 sm:pt-8">
+      <section className="landing-hero-split pb-16 pt-4 sm:pt-8">
         <div className="landing-hero-copy">
           <p className="landing-eyebrow">Orchestration · Énergie &amp; climat</p>
           <h1 className="landing-title">
@@ -44,6 +67,7 @@ export default function HomePage() {
             ))}
           </ul>
         </div>
+        <HeroLivePreview />
       </section>
 
       <OpsChain
@@ -53,6 +77,53 @@ export default function HomePage() {
           greenOps: ecosystem.greenOps,
         }}
       />
+
+      <section className="landing-modules" aria-labelledby="modules-heading">
+        <p className="text-xs font-medium uppercase tracking-widest text-[var(--text-muted)]">
+          Modules
+        </p>
+        <h2 id="modules-heading" className="mt-2 text-xl font-semibold text-[var(--text-primary)]">
+          Les pages du produit
+        </h2>
+        <p className="landing-modules-lead">
+          V1 : une page métier (recommandations). La structure est prête pour
+          d&apos;autres modules sans refonte de la landing.
+        </p>
+        <ul className="feature-grid">
+          {modules.map((m) => (
+            <li key={m.title} className="h-full">
+              {m.available ? (
+                <Link href={m.href} className="feature-card feature-card-link">
+                  <span
+                    className="feature-card-icon"
+                    style={{ color: accent, backgroundColor: `${accent}14` }}
+                    aria-hidden
+                  >
+                    <RecommendationsIcon />
+                  </span>
+                  <h3 className="feature-card-title">{m.title}</h3>
+                  <p className="feature-card-desc">{m.description}</p>
+                </Link>
+              ) : (
+                <div className="feature-card feature-card-soon opacity-80">
+                  <span
+                    className="feature-card-icon"
+                    style={{ color: accent, backgroundColor: `${accent}14` }}
+                    aria-hidden
+                  >
+                    <RecommendationsIcon />
+                  </span>
+                  <h3 className="feature-card-title">
+                    {m.title}
+                    <span className="module-soon-badge">V2</span>
+                  </h3>
+                  <p className="feature-card-desc">{m.description}</p>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

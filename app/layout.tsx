@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
           <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6">
             {children}
           </main>
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
