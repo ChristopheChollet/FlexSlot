@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --accent: #ea580c;
+  --accent-muted: #fff7ed;
+  --surface: #ffffff;
+  --surface-muted: #fafafa;
+  --surface-border: #e4e4e7;
+  --text-primary: #171717;
+  --text-secondary: #404040;
+  --text-muted: #737373;
+}
+
+.dark {
+  --accent-muted: #431407;
+  --surface: #141414;
+  --surface-muted: #181818;
+  --surface-border: #3f3f46;
+  --text-primary: #fafafa;
+  --text-secondary: #d4d4d4;
+  --text-muted: #a3a3a3;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  color: var(--text-primary);
+  background: var(--surface);
+}
+
+.dark body {
+  background: #0a0a0a;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--surface-border);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 500;
+  transition: opacity 0.15s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px solid var(--surface-border);
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.btn-ghost:hover {
+  background: var(--surface-muted);
+}
+
+.section-card {
+  border-radius: 0.75rem;
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  padding: 1.5rem;
+}
+
+.landing-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.landing-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.landing-lead {
+  margin-top: 1rem;
+  max-width: 36rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.flow-step {
+  border-radius: 0.75rem;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-muted);
+  padding: 1rem 1.25rem;
+}
+
+.flow-step-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+}
+
+.badge-soon {
+  display: inline-block;
+  border-radius: 9999px;
+  background: var(--accent-muted);
+  color: var(--accent);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+}
+
+.recommendation-hero {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--surface-border));
+}
+
+.action-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.action-badge-consume {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.dark .action-badge-consume {
+  background: #14532d;
+  color: #86efac;
+}
+
+.action-badge-flex {
+  background: var(--accent-muted);
+  color: var(--accent);
+}
+
+.action-badge-defer {
+  background: #f4f4f5;
+  color: #52525b;
+}
+
+.dark .action-badge-defer {
+  background: #27272a;
+  color: #d4d4d8;
+}
