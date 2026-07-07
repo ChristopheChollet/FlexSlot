@@ -153,7 +153,7 @@ alter table public.flex_slots
 | **4** | Moteur reco | Règles action + UI créneaux 6–12 h |
 | **5** | API GreenOps | Migration 004 + route intégration |
 | **6** | Action 1 clic | Bouton → slot créé → lien GreenOps |
-| **7** | PDF + deploy | Export reco + Vercel + CORS GridPulse |
+| **7** | PDF + deploy | ✅ Export reco + Vercel + CORS GridPulse |
 
 ---
 
@@ -169,6 +169,6 @@ alter table public.flex_slots
 | Projet | Rôle | URL démo |
 |--------|------|----------|
 | GridPulse | Data | grid-pulse-steel.vercel.app |
-| FlexSlot | Orchestration | (à déployer) |
+| FlexSlot | Orchestration | flex-slot.vercel.app |
 | GreenOps | Action | green-ops-five.vercel.app |
 | VoltFlow | Facturation | phase 2 |
