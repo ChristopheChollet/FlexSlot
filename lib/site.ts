@@ -35,3 +35,7 @@ export function getEcosystemLinks() {
       "https://green-ops-five.vercel.app",
   };
 }
+
+export function getGreenOpsDemoUrl(): string {
+  return getEcosystemLinks().greenOps;
+}

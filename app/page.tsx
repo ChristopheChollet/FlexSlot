@@ -6,7 +6,14 @@ import { getEcosystemLinks, getRepoUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-const stack = ["Next.js", "TypeScript", "GridPulse API", "GreenOps API", "Vercel"];
+const stack = [
+  "Next.js",
+  "TypeScript",
+  "GridPulse API",
+  "GreenOps API",
+  "Supabase",
+  "Vercel",
+];
 
 const accent = "#ea580c";
 
@@ -15,15 +22,15 @@ const modules = [
     href: "/recommendations",
     title: "Recommandations",
     description:
-      "Fenêtre optimale GridPulse, action ops (consommer / flex / décaler) et création du slot GreenOps en un clic — cœur du produit V1.",
+      "Fenêtre optimale GridPulse, action ops (consommer / flex / décaler) et création du slot GreenOps en un clic.",
     available: true,
   },
   {
-    href: "/recommendations",
-    title: "Historique & alertes",
+    href: "/history",
+    title: "Historique",
     description:
-      "V2 — suivi des recommandations passées, comparaison prévu vs réalisé et notifications (e-mail ou webhook).",
-    available: false,
+      "Snapshots des recommandations passées et lien vers le créneau GreenOps lorsqu'un slot a été créé.",
+    available: true,
   },
 ] as const;
 
@@ -86,8 +93,8 @@ export default function HomePage() {
           Les pages du produit
         </h2>
         <p className="landing-modules-lead">
-          V1 : une page métier (recommandations). La structure est prête pour
-          d&apos;autres modules sans refonte de la landing.
+          Recommandations live depuis GridPulse et historique persistant des décisions
+          ops — avec traçabilité jusqu&apos;à GreenOps.
         </p>
         <ul className="feature-grid">
           {modules.map((m) => (

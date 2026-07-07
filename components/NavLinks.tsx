@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/recommendations", label: "Recommandations", accent: "#ea580c" },
+  { href: "/history", label: "Historique", accent: "#ea580c" },
 ] as const;
 
 export function NavLinks() {

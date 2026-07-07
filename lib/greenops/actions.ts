@@ -2,6 +2,9 @@
 
 import type { RecommendationAction, SuggestedSlotKind } from "@/lib/recommendations";
 import {
+  attachGreenOpsSlotToSnapshot,
+} from "@/lib/history/record";
+import {
   buildPayloadFromRecommendation,
   createFlexSlotInGreenOps,
 } from "@/lib/greenops";
@@ -67,6 +70,8 @@ export async function createFlexSlotAction(
   if (!result.ok) {
     return { ok: false, message: result.message };
   }
+
+  await attachGreenOpsSlotToSnapshot(input.start_at, result.data.id);
 
   return {
     ok: true,

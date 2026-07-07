@@ -49,12 +49,14 @@ Voir [`.env.example`](.env.example) :
 | `GREENOPS_API_URL` | URL GreenOps (local ou Vercel) |
 | `GREENOPS_SERVICE_KEY` | Clé partagée avec GreenOps (migration `004_flexslot_integration`) |
 | `GREENOPS_DEMO_ORG_ID` | `org_id` cible pour la création de slots |
+| `SUPABASE_URL` | Même projet Supabase que GreenOps (historique V2) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Clé service role (écriture snapshots, serveur uniquement) |
 | `NEXT_PUBLIC_GRIDPULSE_DEMO_URL` | Lien landing → GridPulse |
 | `NEXT_PUBLIC_GREENOPS_DEMO_URL` | Lien landing → GreenOps |
 
 ## Démarrage local
 
-Prérequis : GridPulse API (`:8000`) et GreenOps (`:3000`) accessibles, migration [`004_flexslot_integration.sql`](https://github.com/ChristopheChollet/GreenOps/blob/main/supabase/migrations/004_flexslot_integration.sql) appliquée sur Supabase.
+Prérequis : GridPulse API (`:8000`) et GreenOps (`:3000`) accessibles, migrations GreenOps `004` + FlexSlot `001` appliquées sur Supabase.
 
 ```bash
 npm install
@@ -74,7 +76,8 @@ npm test   # vitest — moteur de recommandation
 2. **Recommandations** : parcourir la fenêtre 6 h et les actions horaires.
 3. **Créer dans GreenOps** : valider la redirection vers le slot créé (`source=flexslot`).
 4. Télécharger le **PDF** depuis la page recommandations.
-5. Enchaîner depuis [GridPulse](https://grid-pulse-steel.vercel.app) ou [GreenOps](https://green-ops-five.vercel.app) via la chaîne ops.
+5. **Historique** : vérifier le snapshot et le lien GreenOps après création de slot.
+6. Enchaîner depuis [GridPulse](https://grid-pulse-steel.vercel.app) ou [GreenOps](https://green-ops-five.vercel.app) via la chaîne ops.
 
 ## Déploiement (Vercel)
 
@@ -84,12 +87,19 @@ npm test   # vitest — moteur de recommandation
 
 Démo : [flex-slot.vercel.app](https://flex-slot.vercel.app)
 
-## V2 (en cours)
+## V2 — livré
 
-- Historique des recommandations (Supabase)
-- Auth optionnelle / multi-org
+- **Historique** — snapshots Supabase des recommandations (`/history`), lien slot GreenOps
+- Déduplication 15 min par fenêtre · enregistrement à la visite `/recommendations`
 
-Cadrage détaillé : [`docs/CADRAGE.md`](docs/CADRAGE.md)
+Migration : [`supabase/migrations/001_flexslot_recommendation_history.sql`](supabase/migrations/001_flexslot_recommendation_history.sql) sur le **même** projet Supabase que GreenOps.
+
+Variables : `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (service role, jamais côté client).
+
+## V3 (optionnel)
+
+- Alertes e-mail / webhook sur seuil carbone
+- Auth multi-org FlexSlot
 
 ## Limites (assumées)
 

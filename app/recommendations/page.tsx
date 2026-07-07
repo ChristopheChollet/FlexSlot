@@ -7,6 +7,7 @@ import {
 } from "@/components/RecommendationPanel";
 import { GreenWindowPanel } from "@/components/GreenWindowPanel";
 import { buildRecommendationPlan } from "@/lib/recommendations";
+import { recordRecommendationSnapshot } from "@/lib/history/record";
 import { fetchGreenWindowsSafe } from "@/lib/gridpulse";
 
 export const dynamic = "force-dynamic";
@@ -60,6 +61,8 @@ function RecommendationsContent({
   apiUrl: string;
 }) {
   const plan = buildRecommendationPlan(data.best_window, data.slots);
+
+  void recordRecommendationSnapshot(plan, data.window_hours, "view");
 
   return (
     <>
