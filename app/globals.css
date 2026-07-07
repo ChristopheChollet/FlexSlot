@@ -30,16 +30,45 @@ html.dark {
 body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   color: var(--text-primary);
-  background: var(--surface);
 }
 
-.dark body {
-  background: #0a0a0a;
+.app-canvas {
+  min-height: 100vh;
+  color: var(--text-primary);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(234 88 12 / 0.08), transparent),
+    var(--surface);
+}
+
+.dark .app-canvas {
+  background:
+    radial-gradient(ellipse 70% 45% at 50% -10%, rgb(234 88 12 / 0.12), transparent),
+    #0a0a0a;
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
   border-bottom: 1px solid var(--surface-border);
-  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .site-header {
+    backdrop-filter: blur(8px);
+  }
+}
+
+.site-header-bar {
+  min-height: 3.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.dark .site-header {
+  background: rgb(0 0 0 / 0.72);
 }
 
 .btn-primary {
@@ -63,13 +92,20 @@ body {
   justify-content: center;
   border-radius: 0.5rem;
   border: 1px solid var(--surface-border);
+  background: var(--surface);
   color: var(--text-secondary);
   font-weight: 500;
-  transition: background 0.15s;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
 .btn-ghost:hover {
-  background: var(--surface-muted);
+  background: var(--surface);
+  border-color: rgb(253 186 116);
+  color: var(--text-primary);
+}
+
+.dark .btn-ghost:hover {
+  border-color: rgb(234 88 12 / 0.35);
 }
 
 .section-card {

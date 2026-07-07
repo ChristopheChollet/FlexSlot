@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,11 +29,25 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} min-h-full antialiased`}
     >
-      <body className="min-h-full">
-        <SiteHeader />
-        <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">{children}</main>
+      <head>
+        <Script
+          id="flexslot-theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var k='flexslot-theme',t=localStorage.getItem(k)||'light',r=document.documentElement;r.classList.remove('light','dark');if(t==='light'||t==='dark')r.classList.add(t);else r.classList.add('light');}catch(e){document.documentElement.classList.add('light');}})();`,
+          }}
+        />
+      </head>
+      <body className="app-canvas flex min-h-screen flex-col antialiased">
+        <ThemeProvider>
+          <SiteHeader />
+          <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8 sm:px-6">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
