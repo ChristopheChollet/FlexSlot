@@ -19,15 +19,23 @@ export async function GET(request: Request) {
     return Response.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  const data = await fetchGreenWindowsSafe(24, 6);
-  if (!data?.best_window) {
+  const result = await fetchGreenWindowsSafe(24, 6);
+  if (!result.ok) {
+    return Response.json(
+      { ok: false, alert: false, reason: "gridpulse_error", message: result.message },
+      { status: 502 },
+    );
+  }
+
+  const { best_window, slots, window_hours } = result.data;
+  if (!best_window) {
     return Response.json({ ok: true, alert: false, reason: "no_window" });
   }
 
-  const plan = buildRecommendationPlan(data.best_window, data.slots);
+  const plan = buildRecommendationPlan(best_window, slots);
   const snapshotId = await recordRecommendationSnapshot(
     plan,
-    data.window_hours,
+    window_hours,
     "view",
   );
 
