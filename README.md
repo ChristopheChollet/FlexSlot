@@ -118,6 +118,8 @@ Guide complet : [`docs/ALERTES.md`](./docs/ALERTES.md) (Slack, Discord, Vercel C
 
 ## V3 (optionnel)
 
+> Détail consolidé écosystème : [portfolio `docs/V3-ROADMAP.md`](https://github.com/ChristopheChollet/portfolio-starter-kit/blob/main/docs/V3-ROADMAP.md).
+
 - Alertes e-mail (Resend / SMTP)
 - Auth multi-org FlexSlot
 
