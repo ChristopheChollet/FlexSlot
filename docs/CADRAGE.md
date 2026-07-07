@@ -103,7 +103,7 @@ Response 201:
 Variables GreenOps :
 
 - `GREENOPS_INTEGRATION_SECRET`
-- `GREENOPS_DEMO_ORG_ID` (org de démo pour portfolio)
+- `GREENOPS_DEMO_ORG_ID` (org cible pour la démo)
 
 Variables FlexSlot :
 
@@ -157,10 +157,10 @@ alter table public.flex_slots
 
 ---
 
-## Honnêteté entretien
+## Limites & production
 
 - Recommandations **pédagogiques**, pas conseil opérationnel RTE.
-- Intégration **démo portfolio** ; en prod réelle : auth OAuth service-to-service, idempotence, retry.
+- Intégration par **clé de service** ; en production : OAuth machine-to-machine, idempotence, retry.
 
 ---
 

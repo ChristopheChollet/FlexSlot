@@ -216,7 +216,7 @@ export function DailyReportDocument({
         <Text style={styles.footer}>
           Indicateur pédagogique basé sur les données GridPulse (RTE, Electricity Maps) — ne
           constitue pas une recommandation opérationnelle réseau. Document généré automatiquement
-          par FlexSlot dans le cadre d&apos;un portfolio de développement.
+          par FlexSlot — document généré automatiquement, usage démonstratif non réglementaire.
         </Text>
       </Page>
     </Document>
