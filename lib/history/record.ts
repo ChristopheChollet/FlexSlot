@@ -1,4 +1,5 @@
 import type { RecommendationPlan } from "@/lib/recommendations";
+import { maybeSendRecommendationAlert } from "@/lib/alerts/dispatch";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getGreenOpsDemoUrl } from "@/lib/site";
 import type { SnapshotTrigger } from "@/lib/history/types";
@@ -63,6 +64,7 @@ export async function recordRecommendationSnapshot(
     return null;
   }
 
+  void maybeSendRecommendationAlert(plan, data.id);
   return data.id;
 }
 

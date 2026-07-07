@@ -57,6 +57,10 @@ Voir [`.env.example`](.env.example) :
 | `GREENOPS_DEMO_ORG_ID` | `org_id` cible pour la création de slots |
 | `SUPABASE_URL` | Même projet Supabase que GreenOps (historique V2) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Clé service role (écriture snapshots, serveur uniquement) |
+| `FLEXSLOT_ALERT_WEBHOOK_URL` | Webhook alertes V2.1 (Slack, Discord, …) |
+| `FLEXSLOT_CARBON_ALERT_THRESHOLD_GCO2` | Seuil carbone gCO₂/kWh (défaut `200`) |
+| `FLEXSLOT_ALERT_ACTIONS` | Actions déclenchant l'alerte (défaut `defer`) |
+| `CRON_SECRET` | Secret pour `GET /api/cron/check-alerts` |
 | `NEXT_PUBLIC_GRIDPULSE_DEMO_URL` | Lien landing → GridPulse |
 | `NEXT_PUBLIC_GREENOPS_DEMO_URL` | Lien landing → GreenOps |
 
@@ -102,9 +106,17 @@ Migration : [`supabase/migrations/001_flexslot_recommendation_history.sql`](supa
 
 Variables : `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (service role, jamais côté client).
 
+## V2.1 (alertes ops) — livré
+
+- **Webhook** quand l'action principale est **Décaler** (`defer`) ou carbone ≥ seuil
+- Déduplication 15 min alignée sur l'historique (pas de spam)
+- **Cron optionnel** : `GET /api/cron/check-alerts` avec header `Authorization: Bearer <CRON_SECRET>`
+
+Variables : `FLEXSLOT_ALERT_WEBHOOK_URL`, `FLEXSLOT_CARBON_ALERT_THRESHOLD_GCO2` (défaut 200), `FLEXSLOT_ALERT_ACTIONS` (défaut `defer`), `CRON_SECRET`.
+
 ## V3 (optionnel)
 
-- Alertes e-mail / webhook sur seuil carbone
+- Alertes e-mail (Resend / SMTP)
 - Auth multi-org FlexSlot
 
 ## Limites (assumées)
