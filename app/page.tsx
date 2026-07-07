@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { HeroLivePreview } from "@/components/HeroLivePreview";
 import { OpsChain } from "@/components/OpsChain";
-import { RecommendationsIcon } from "@/components/RecommendationsIcon";
+import {
+  HistoryIcon,
+  RecommendationsIcon,
+} from "@/components/ModuleIcons";
 import { getEcosystemLinks, getRepoUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -15,12 +18,12 @@ const stack = [
   "Vercel",
 ];
 
-const accent = "#ea580c";
-
 const modules = [
   {
     href: "/recommendations",
     title: "Recommandations",
+    icon: RecommendationsIcon,
+    accent: "#ea580c",
     description:
       "Fenêtre optimale GridPulse, action ops (consommer / flex / décaler) et création du slot GreenOps en un clic.",
     available: true,
@@ -28,6 +31,8 @@ const modules = [
   {
     href: "/history",
     title: "Historique",
+    icon: HistoryIcon,
+    accent: "#6366f1",
     description:
       "Snapshots des recommandations passées et lien vers le créneau GreenOps lorsqu'un slot a été créé.",
     available: true,
@@ -97,16 +102,18 @@ export default function HomePage() {
           ops — avec traçabilité jusqu&apos;à GreenOps.
         </p>
         <ul className="feature-grid">
-          {modules.map((m) => (
+          {modules.map((m) => {
+            const Icon = m.icon;
+            return (
             <li key={m.title} className="h-full">
               {m.available ? (
                 <Link href={m.href} className="feature-card feature-card-link">
                   <span
                     className="feature-card-icon"
-                    style={{ color: accent, backgroundColor: `${accent}14` }}
+                    style={{ color: m.accent, backgroundColor: `${m.accent}14` }}
                     aria-hidden
                   >
-                    <RecommendationsIcon />
+                    <Icon />
                   </span>
                   <h3 className="feature-card-title">{m.title}</h3>
                   <p className="feature-card-desc">{m.description}</p>
@@ -115,10 +122,10 @@ export default function HomePage() {
                 <div className="feature-card feature-card-soon opacity-80">
                   <span
                     className="feature-card-icon"
-                    style={{ color: accent, backgroundColor: `${accent}14` }}
+                    style={{ color: m.accent, backgroundColor: `${m.accent}14` }}
                     aria-hidden
                   >
-                    <RecommendationsIcon />
+                    <Icon />
                   </span>
                   <h3 className="feature-card-title">
                     {m.title}
@@ -128,7 +135,8 @@ export default function HomePage() {
                 </div>
               )}
             </li>
-          ))}
+            );
+          })}
         </ul>
       </section>
     </div>
