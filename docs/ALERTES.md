@@ -74,20 +74,22 @@ Colle le résultat dans Vercel (Production + Preview si besoin).
 
 ### Cron Vercel (déjà dans `vercel.json`)
 
+> **Plan Hobby** : Vercel n’autorise qu’**un cron par jour** (pas toutes les 15 min). Le repo utilise `0 7 * * *` (07:00 UTC). Pour du polling 15 min : plan Pro, ou cron externe (ex. [cron-job.org](https://cron-job.org)) qui appelle l’endpoint ci-dessous.
+
 ```json
 {
   "crons": [
     {
       "path": "/api/cron/check-alerts",
-      "schedule": "*/15 * * * *"
+      "schedule": "0 7 * * *"
     }
   ]
 }
 ```
 
-- Toutes les **15 min**, Vercel appelle `/api/cron/check-alerts`
+- **1× / jour** (07:00 UTC) sur Hobby — Vercel appelle `/api/cron/check-alerts`
 - Vercel envoie automatiquement `Authorization: Bearer <CRON_SECRET>` si la variable est définie
-- Déduplication **15 min** alignée sur l’historique (pas de spam)
+- Déduplication **15 min** côté app (pas de spam si plusieurs déclencheurs)
 
 **Redéploie** après avoir ajouté les variables (un push sur `main` suffit).
 

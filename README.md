@@ -110,7 +110,7 @@ Variables : `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (service role, jamais c�
 
 - **Webhook** quand l'action principale est **Décaler** (`defer`) ou carbone ≥ seuil
 - Déduplication 15 min alignée sur l'historique (pas de spam)
-- **Cron optionnel** : `GET /api/cron/check-alerts` avec header `Authorization: Bearer <CRON_SECRET>`
+- **Cron optionnel** : `GET /api/cron/check-alerts` avec header `Authorization: Bearer <CRON_SECRET>` (Vercel Cron **1×/jour** sur plan Hobby — voir `vercel.json`)
 
 Variables : `FLEXSLOT_ALERT_WEBHOOK_URL`, `FLEXSLOT_CARBON_ALERT_THRESHOLD_GCO2` (défaut 200), `FLEXSLOT_ALERT_ACTIONS` (défaut `defer`), `CRON_SECRET`.
 
