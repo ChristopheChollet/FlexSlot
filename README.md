@@ -11,6 +11,12 @@ GridPulse  →  FlexSlot  →  GreenOps
 
 GridPulse indique **quand** le réseau est favorable ; FlexSlot traduit la fenêtre en **consommer / flex / décaler** ; GreenOps **enregistre** le créneau flex avec traçabilité GridPulse.
 
+## Captures d'écran
+
+| Landing | Recommandations | Historique |
+|---|---|---|
+| ![Landing](docs/screenshots/landing.webp) | ![Recommandations](docs/screenshots/recommendations.webp) | ![Historique](docs/screenshots/history.webp) |
+
 ## Architecture
 
 ```
