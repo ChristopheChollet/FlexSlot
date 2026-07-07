@@ -1,7 +1,7 @@
 import {
   buildRecommendationPlan,
-  type RecommendationAction,
 } from "@/lib/recommendations";
+import { valuesToBarHeightPcts } from "@/lib/chartBarHeights";
 import { fetchGreenWindowsSafe, formatParisTime } from "@/lib/gridpulse";
 
 const DEMO_STATS = {
@@ -9,6 +9,8 @@ const DEMO_STATS = {
   action: "Flex",
   carbon: "18 g",
   foot: "Aperçu démo · ouvrez Recommandations pour le détail",
+  chartFoot: "Scores horaires (fenêtre 6 h) · démo",
+  barValues: [66, 67, 68, 69, 68, 67],
 } as const;
 
 export async function HeroLivePreview() {
@@ -28,14 +30,17 @@ export async function HeroLivePreview() {
     return <HeroPreviewStats {...DEMO_STATS} live={false} />;
   }
 
+  const barValues = primary.hourly.map((h) => h.score);
+
   return (
     <HeroPreviewStats
       score={primary.score.toFixed(1)}
       action={primary.label}
       carbon={`${primary.avg_carbon_gco2_kwh.toFixed(0)} g`}
       foot={`Données live · fenêtre ${formatParisTime(primary.start_at)}`}
+      chartFoot="Scores horaires dans la fenêtre 6 h"
       live
-      actionKind={primary.action}
+      barValues={barValues}
     />
   );
 }
@@ -45,21 +50,19 @@ function HeroPreviewStats({
   action,
   carbon,
   foot,
+  chartFoot,
   live,
-  actionKind = "flex",
+  barValues,
 }: {
   score: string;
   action: string;
   carbon: string;
   foot: string;
+  chartFoot: string;
   live: boolean;
-  actionKind?: RecommendationAction;
+  barValues: readonly number[];
 }) {
-  const barHeights = actionKind === "consume"
-    ? ["70%", "85%", "60%", "90%", "75%", "65%"]
-    : actionKind === "defer"
-      ? ["35%", "45%", "30%", "50%", "40%", "38%"]
-      : ["55%", "75%", "45%", "90%", "60%", "50%"];
+  const barHeights = valuesToBarHeightPcts(barValues);
 
   return (
     <div className="screenshot-frame">
@@ -95,7 +98,10 @@ function HeroPreviewStats({
             />
           ))}
         </div>
-        <p className="hero-preview-foot text-xs text-[var(--text-muted)]">{foot}</p>
+        <p className="hero-preview-foot text-xs text-[var(--text-muted)]">
+          {foot}
+          <span className="block mt-1">{chartFoot}</span>
+        </p>
       </div>
     </div>
   );

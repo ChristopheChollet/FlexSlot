@@ -11,7 +11,7 @@ export function SiteFooter() {
           Orchestration data → décision → action — pont GridPulse &amp; GreenOps
         </p>
         <p className="mt-4 text-xs text-[var(--text-muted)]">
-          Démo portfolio · {year}
+          Christophe Chollet · {year}
         </p>
       </div>
     </footer>
