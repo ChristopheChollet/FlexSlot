@@ -114,6 +114,8 @@ Variables : `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (service role, jamais c�
 
 Variables : `FLEXSLOT_ALERT_WEBHOOK_URL`, `FLEXSLOT_CARBON_ALERT_THRESHOLD_GCO2` (défaut 200), `FLEXSLOT_ALERT_ACTIONS` (défaut `defer`), `CRON_SECRET`.
 
+Guide complet : [`docs/ALERTES.md`](./docs/ALERTES.md) (Slack, Discord, Vercel Cron, tests curl).
+
 ## V3 (optionnel)
 
 - Alertes e-mail (Resend / SMTP)

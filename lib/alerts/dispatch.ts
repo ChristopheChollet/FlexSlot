@@ -1,4 +1,8 @@
 import { getAlertConfig } from "@/lib/alerts/config";
+import {
+  buildWebhookBody,
+  formatFlexSlotAlertText,
+} from "@/lib/alerts/webhook-body";
 import type { RecommendationPlan } from "@/lib/recommendations";
 
 export function shouldSendRecommendationAlert(
@@ -28,22 +32,35 @@ export async function maybeSendRecommendationAlert(
   if (!primary) return;
 
   try {
+    const raw = {
+      event: "flexslot_recommendation_alert",
+      source: "flexslot",
+      action: primary.action,
+      label: primary.label,
+      score: primary.score,
+      avg_carbon_gco2_kwh: primary.avg_carbon_gco2_kwh,
+      avg_renewable_pct: primary.avg_renewable_pct,
+      window_start: primary.start_at,
+      window_end: primary.end_at,
+      snapshot_id: snapshotId,
+      threshold_gco2_kwh: config.thresholdGco2,
+    };
+
+    const text = formatFlexSlotAlertText({
+      label: primary.label,
+      action: primary.action,
+      score: primary.score,
+      avg_carbon_gco2_kwh: primary.avg_carbon_gco2_kwh,
+      avg_renewable_pct: primary.avg_renewable_pct,
+      window_start: primary.start_at,
+      window_end: primary.end_at,
+      threshold_gco2_kwh: config.thresholdGco2,
+    });
+
     const res = await fetch(config.webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        event: "flexslot_recommendation_alert",
-        source: "flexslot",
-        action: primary.action,
-        label: primary.label,
-        score: primary.score,
-        avg_carbon_gco2_kwh: primary.avg_carbon_gco2_kwh,
-        avg_renewable_pct: primary.avg_renewable_pct,
-        window_start: primary.start_at,
-        window_end: primary.end_at,
-        snapshot_id: snapshotId,
-        threshold_gco2_kwh: config.thresholdGco2,
-      }),
+      body: JSON.stringify(buildWebhookBody(config.webhookUrl, text, raw)),
     });
 
     if (!res.ok) {
