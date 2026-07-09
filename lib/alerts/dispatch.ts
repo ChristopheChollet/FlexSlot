@@ -1,4 +1,5 @@
-import { getAlertConfig } from "@/lib/alerts/config";
+import { getAlertConfig, getAlertRules, type AlertRules } from "@/lib/alerts/config";
+import { persistMeridianAlert } from "@/lib/alerts/persist";
 import {
   buildWebhookBody,
   formatFlexSlotAlertText,
@@ -7,14 +8,14 @@ import type { RecommendationPlan } from "@/lib/recommendations";
 
 export function shouldSendRecommendationAlert(
   plan: RecommendationPlan,
-  config: NonNullable<ReturnType<typeof getAlertConfig>>,
+  rules: AlertRules,
 ): boolean {
   const primary = plan.primary;
   if (!primary) return false;
 
   const carbonHigh =
-    (primary.avg_carbon_gco2_kwh ?? 0) >= config.thresholdGco2;
-  const actionMatch = config.actions.includes(primary.action);
+    (primary.avg_carbon_gco2_kwh ?? 0) >= rules.thresholdGco2;
+  const actionMatch = rules.actions.includes(primary.action);
 
   return actionMatch || carbonHigh;
 }
@@ -25,11 +26,20 @@ export async function maybeSendRecommendationAlert(
 ): Promise<void> {
   if (!snapshotId) return;
 
-  const config = getAlertConfig();
-  if (!config || !shouldSendRecommendationAlert(plan, config)) return;
+  const rules = getAlertRules();
+  if (!shouldSendRecommendationAlert(plan, rules)) return;
 
   const primary = plan.primary;
   if (!primary) return;
+
+  void persistMeridianAlert({
+    plan,
+    snapshotId,
+    thresholdGco2: rules.thresholdGco2,
+  });
+
+  const config = getAlertConfig();
+  if (!config) return;
 
   try {
     const raw = {
