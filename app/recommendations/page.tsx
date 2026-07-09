@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { GridPulseError } from "@/components/GridPulseError";
+import { PageHeader } from "@/components/PageHeader";
+import { RecommendationsIcon } from "@/components/ModuleIcons";
 import {
   HourlyRecommendationsTable,
   RecommendationHero,
@@ -17,22 +18,13 @@ export default async function RecommendationsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <Link
-          href="/"
-          className="text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-        >
-          ← Accueil
-        </Link>
-        <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Recommandations</h1>
-            <p className="mt-2 max-w-prose text-sm text-[var(--text-secondary)]">
-              GridPulse alimente FlexSlot : fenêtre optimale, action ops et création
-              du slot flex dans GreenOps en un clic.
-            </p>
-          </div>
-          {result.ok && (
+      <PageHeader
+        eyebrow="Orchestration"
+        title="Recommandations"
+        description="GridPulse alimente FlexSlot : fenêtre optimale, action ops et création du slot flex dans GreenOps en un clic."
+        icon={<RecommendationsIcon />}
+        actions={
+          result.ok ? (
             <a
               href="/api/report"
               className="btn-secondary shrink-0 px-4 py-2 text-sm"
@@ -40,9 +32,9 @@ export default async function RecommendationsPage() {
             >
               Télécharger le PDF du jour
             </a>
-          )}
-        </div>
-      </div>
+          ) : undefined
+        }
+      />
 
       {result.ok ? (
         <RecommendationsContent data={result.data} apiUrl={result.apiUrl} />

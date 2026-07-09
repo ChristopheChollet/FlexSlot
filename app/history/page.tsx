@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { PageHeader } from "@/components/PageHeader";
+import { HistoryIcon } from "@/components/ModuleIcons";
 import { ActionBadge } from "@/components/RecommendationPanel";
 import { listRecommendationHistory } from "@/lib/history/queries";
 import type { HistoryListItem } from "@/lib/history/types";
@@ -12,19 +14,13 @@ export default async function HistoryPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <Link
-          href="/"
-          className="text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-        >
-          ← Accueil
-        </Link>
-        <h1 className="mt-4 text-2xl font-semibold tracking-tight">Historique</h1>
-        <p className="mt-2 max-w-prose text-sm text-[var(--text-secondary)]">
-          Snapshots des recommandations GridPulse enregistrés par FlexSlot — avec lien
-          vers le créneau GreenOps lorsqu&apos;un slot a été créé en un clic.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Orchestration"
+        title="Historique"
+        description="Snapshots des recommandations GridPulse enregistrés par FlexSlot — avec lien vers le créneau GreenOps lorsqu'un slot a été créé en un clic."
+        icon={<HistoryIcon />}
+        accent="#6366f1"
+      />
 
       {!configured ? (
         <div className="section-card">
@@ -63,7 +59,7 @@ function HistoryRow({ item }: { item: HistoryListItem }) {
   const action = item.primaryAction as RecommendationAction | null;
 
   return (
-    <li className="section-card">
+    <li className="section-card section-card-hover">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs text-[var(--text-muted)]">
