@@ -606,12 +606,12 @@ h1.landing-title .landing-title-accent {
   grid-template-columns: 1fr;
   list-style: none;
   padding: 0;
-  margin: 2rem 0 0;
+  margin: 1.5rem 0 0;
 }
 
 @media (min-width: 640px) {
   .feature-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
