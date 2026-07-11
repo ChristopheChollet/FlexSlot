@@ -11,3 +11,10 @@ npm-debug.log*
 !.env.example
 .vercel
 *.tsbuildinfo
+.env*
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
