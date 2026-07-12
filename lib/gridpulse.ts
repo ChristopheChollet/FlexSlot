@@ -46,7 +46,7 @@ export async function fetchGreenWindowsSafe(
   const url = `${base}${path}`;
 
   try {
-    const res = await fetch(url, { next: { revalidate: 300 } });
+    const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) {
       return {
         ok: false,
