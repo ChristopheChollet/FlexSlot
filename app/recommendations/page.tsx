@@ -58,11 +58,13 @@ function RecommendationsContent({
 
   return (
     <>
-      {plan.primary ? (
-        <RecommendationHero recommendation={plan.primary} />
-      ) : (
-        <GreenWindowPanel data={data} apiUrl={apiUrl} />
-      )}
+      <div data-tour="reco-hero">
+        {plan.primary ? (
+          <RecommendationHero recommendation={plan.primary} />
+        ) : (
+          <GreenWindowPanel data={data} apiUrl={apiUrl} />
+        )}
+      </div>
 
       {plan.primary && plan.primary.hourly.length > 0 && (
         <HourlyRecommendationsTable
