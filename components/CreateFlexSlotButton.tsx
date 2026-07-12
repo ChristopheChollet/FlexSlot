@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 import type { WindowRecommendation } from "@/lib/recommendations";
 import {
   createFlexSlotAction,
@@ -14,6 +15,8 @@ export function CreateFlexSlotButton({
 }) {
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<CreateSlotActionResult | null>(null);
+  const searchParams = useSearchParams();
+  const tourActive = searchParams.get("tour") === "1";
 
   const canCreate = recommendation.suggestedKind !== null;
 
@@ -35,7 +38,10 @@ export function CreateFlexSlotButton({
   }
 
   return (
-    <div className="mt-6 border-t border-[var(--surface-border)] pt-6">
+    <div
+      className="mt-6 border-t border-[var(--surface-border)] pt-6"
+      data-tour="create-slot"
+    >
       <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
@@ -63,7 +69,11 @@ export function CreateFlexSlotButton({
             {result.recommendationAction}
           </p>
           <a
-            href={result.greenopsUrl}
+            href={
+              tourActive
+                ? `${result.greenopsUrl}${result.greenopsUrl.includes("?") ? "&" : "?"}tour=1&step=go-flex`
+                : result.greenopsUrl
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block font-medium text-[var(--accent)] underline"

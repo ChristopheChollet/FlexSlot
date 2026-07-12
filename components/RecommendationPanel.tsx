@@ -19,7 +19,7 @@ export function RecommendationHero({
   recommendation: WindowRecommendation;
 }) {
   return (
-    <section className="section-card recommendation-hero" aria-labelledby="reco-hero-title">
+    <section className="section-card recommendation-hero" aria-labelledby="reco-hero-title" data-tour="reco-hero">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { MeridianJourneyBar } from "@/components/MeridianJourneyBar";
+import { MeridianTourGate } from "@/components/MeridianTourGate";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -47,6 +49,9 @@ export default function RootLayout({
         <ThemeProvider>
           <SiteHeader />
           <MeridianJourneyBar current="flexslot" />
+          <Suspense fallback={null}>
+            <MeridianTourGate app="flexslot" />
+          </Suspense>
           <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6">
             {children}
           </main>
